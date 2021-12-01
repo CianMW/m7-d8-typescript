@@ -19,10 +19,6 @@ class MyNavBar extends Component{
       <Nav.Link href="#features">Features</Nav.Link>
       <Nav.Link href="#pricing">Pricing</Nav.Link>
     </Nav>
-    <Form className="d-flex">
-      <FormControl type="text" placeholder="Search" className="mr-sm-2" />
-      <Button variant="outline-info">Search</Button>
-    </Form>
   </Navbar>
   </>
     )

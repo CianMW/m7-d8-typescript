@@ -8,34 +8,38 @@ import {
   Col,
   Row,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { singleSong, songs } from "../Interfaces";
 
 const MainSearch = () => {
   const [query, setQuery] = useState<string>("");
-  const [data, setData] = useState([]);
+  const [data, setData] = useState<singleSong[]>();
 
   const fetchData = async () => {
     try {
-      if (query) {
+      if (query.length > 3) {
         const response = await fetch(
           `https://striveschool-api.herokuapp.com/api/deezer/search?q=${query}`
         );
         if (response.ok) {
-            let data = await response.json();
-            console.log("This is the data :", data);
-            setData(data);
-          } else {
-              console.log("couldn't fetch data ")
-          }
+          let results = await response.json();
+             let newResults: singleSong[] = results.data
+          console.log("This is the data!! :", newResults);
+          setData(newResults);
+        } else {
+          console.log("couldn't fetch data ");
+        }
       } else {
         const response = await fetch(
           `https://striveschool-api.herokuapp.com/api/deezer/search?q=random`
         );
         if (response.ok) {
-          let data = await response.json();
-          console.log("This is the data :", data);
-          setData(data);
+          let results = await response.json();
+           let newResults: singleSong[]  = results.data
+          console.log("This is the data!! :", newResults);
+          setData(newResults);
         } else {
-            console.log("couldn't fetch data ")
+          console.log("couldn't fetch data ");
         }
       }
     } catch (error) {
@@ -47,9 +51,16 @@ const MainSearch = () => {
     fetchData();
   }, []);
 
+  useEffect(() => {
+      if (query.length > 3){
+           fetchData();
+      }
+   
+  }, [query]);
+
   return (
     <div>
-      <Container>
+      <Container className="mb-4">
         <Row className="mt-5 d=flex flex-row-reverse">
           <Col sm={3}>
             <FormGroup className="search-group">
@@ -61,12 +72,32 @@ const MainSearch = () => {
                   placeholder="Search"
                   className="mr-sm-2"
                 />
-                <Button onClick={() => console.log("")} variant="outline-info">
+                <Button
+                  onClick={() => console.log(query)}
+                  variant="outline-info"
+                >
                   Search
                 </Button>
               </Form>
             </FormGroup>
           </Col>
+        </Row>
+      </Container>
+
+      <Container>
+          <Row>
+        {data && (
+          data.map((data) => 
+          <Col>
+          <Link to={`/singleSong/${data.id}`}>
+              <div >
+                  <img className="track-image" src={data.album.cover_medium}/>
+                  <div><h5>{data.title}</h5></div>
+              </div>
+            </Link>
+          </Col>
+          )
+        )}
         </Row>
       </Container>
     </div>
