@@ -6,6 +6,7 @@ const SongDetails = () => {
 const [trackInfo, setTrackInfo] = useState();
 
 const params = useParams()
+console.log("here's the ID from the params",params.id)
 
 const fetchTrackDetails = async () => {
     try{

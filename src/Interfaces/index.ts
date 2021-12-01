@@ -4,9 +4,6 @@ export interface singleSong {
   duration: number;
   artist: artist
   album: album
-
-
-
 }
 
 export interface songs {
@@ -19,6 +16,14 @@ export interface album {
 }
 export interface artist {
     id: number;
-    naem: string;
+    name: string;
     picture_medium: string;
+}
+
+export interface trackInfo {
+    id: number;
+    title: string;
+    picture_medium: string;
+    artist: artist
+    album: album
 }

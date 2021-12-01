@@ -89,7 +89,7 @@ const MainSearch = () => {
         {data && (
           data.map((data) => 
           <Col>
-          <Link to={`/singleSong/${data.id}`}>
+          <Link to={`/songDetails/${data.id}`}>
               <div >
                   <img className="track-image" src={data.album.cover_medium}/>
                   <div><h5>{data.title}</h5></div>
