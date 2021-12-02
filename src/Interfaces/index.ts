@@ -24,6 +24,7 @@ export interface trackInfo {
     id: number;
     title: string;
     picture_medium: string;
+    preview: string;
     artist: artist
     album: album
 }
