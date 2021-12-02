@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { trackInfo } from "../Interfaces";
+import { Col, Container, Row } from "react-bootstrap";
 
 
 const SongDetails = () => {
-const [trackInfo, setTrackInfo] = useState();
+const [trackInfo, setTrackInfo] = useState<trackInfo>();
 
 const params = useParams()
 console.log("here's the ID from the params",params.id)
@@ -32,9 +34,27 @@ const fetchTrackDetails = async () => {
 
 
     return(
-        <>
-        </>
-    )
-}
-
+        <Container>
+            <Row className="d-flex justify-content-between">
+                <Col ></Col>
+        
+        <Col className="trackDetail-border">
+        {trackInfo && 
+            <div>
+            <img src={trackInfo.album.cover_medium} />
+            {/* // start of track info section */}
+            <div className="d-flex flex-column align-items-start"> 
+            <h2 className="song-title">{trackInfo.title}</h2>
+            <small className="artist-info">by {trackInfo.artist.name}</small>    
+             </div>
+            </div>
+           } 
+           </Col>
+            <Col ></Col>
+        
+   
+    </Row>
+        </Container>
+ )   
+} 
 export default SongDetails
